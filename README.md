@@ -19,7 +19,7 @@
 
 <div align="center">
 
-[![predictions](https://github.com/laikhuramkorouhanba/DOCUMENT_EXTRACTION_SYSTEM_RAG/blob/main/assets/ARC.png?raw=true)]((https://github.com/laikhuramkorouhanba/DOCUMENT_EXTRACTION_SYSTEM_RAG))
+[![predictions](https://github.com/laikhuramkorouhanba/DOCUMENT_EXTRACTION_SYSTEM_RAG/blob/main/static/assets/ARC.png?raw=true)]((https://github.com/laikhuramkorouhanba/DOCUMENT_EXTRACTION_SYSTEM_RAG))
 
 </div>
 
