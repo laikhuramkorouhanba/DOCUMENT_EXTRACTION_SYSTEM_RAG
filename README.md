@@ -4,16 +4,16 @@ This project is a Flask-based web application designed to analyse and extract in
 
 ---
 
-## 🚀 Key Features
+## Key Features
 
-* [cite_start]**Vulnerability Querying**: Employs TF-IDF vectorization and Cosine Similarity to retrieve relevant CVE records from the CISA KEV dataset[cite: 30, 193, 194].
-* [cite_start]**Context-Aware Augmentation**: Uses the Llama 3.2 1-billion parameter model to generate detailed responses based on retrieved security data[cite: 29, 31].
-* [cite_start]**PDF Processing**: Extracts text from uploaded PDFs using PDFPlumber, chunks the content, and stores it in a **Chroma DB** vector store for analysis[cite: 131, 201, 203].
-* [cite_start]**Real-time Interaction**: Built on a Flask backend providing a user-friendly interface for security researchers and analysts[cite: 30, 221].
+* **Vulnerability Querying**: Employs TF-IDF vectorization and Cosine Similarity to retrieve relevant CVE records from the CISA KEV dataset.
+* **Context-Aware Augmentation**: Uses the Llama 3.2 1-billion parameter model to generate detailed responses based on retrieved security data.
+* **PDF Processing**: Extracts text from uploaded PDFs using PDFPlumber, chunks the content, and stores it in a **Chroma DB** vector store for analysis.
+* **Real-time Interaction**: Built on a Flask backend providing a user-friendly interface for security researchers and analysts.
 
 ---
 
-## 🏗️ System Architecture
+## System Architecture
 
 <div align="center">
 
@@ -21,30 +21,20 @@ This project is a Flask-based web application designed to analyse and extract in
 
 </div>
 
-The system follows a modular RAG workflow:
-1.  [cite_start]**Data Handling**: Loads and preprocesses CSV/PDF data[cite: 117, 139].
-2.  [cite_start]**Vector Store**: Manages high-dimensional embeddings using Chroma DB and FastEmbed[cite: 130, 282].
-3.  [cite_start]**Retrieval**: Matches user queries to the knowledge base using similarity scores[cite: 141, 195].
-4.  [cite_start]**Generation**: Augments the query with retrieved context and sends it to the Hugging Face Inference API[cite: 170, 229].
+---
 
-
+* **Framework**: Flask
+* **LLM**: Meta Llama 3.2-1B (via Hugging Face API)
+* **Database**: Chroma DB (Vector Storage)
+* **Libraries**: Scikit-learn (TF-IDF), LangChain, Pandas, PDFPlumber
 
 ---
 
-## 🛠️ Tech Stack
-
-* [cite_start]**Framework**: Flask [cite: 30]
-* [cite_start]**LLM**: Meta Llama 3.2-1B (via Hugging Face API) [cite: 29, 231]
-* [cite_start]**Database**: Chroma DB (Vector Storage) [cite: 131, 282]
-* [cite_start]**Libraries**: Scikit-learn (TF-IDF), LangChain, Pandas, PDFPlumber [cite: 133, 375, 378, 455]
-
----
-
-## 🔧 Installation & Setup
+## Installation & Setup
 
 ### Prerequisites
-* [cite_start]Python 3.8+ [cite: 543]
-* [cite_start]Hugging Face API Token [cite: 567]
+* Python 3.8+ 
+* Hugging Face API Token 
 
 ### Step 1: Clone and Environment Setup
 ```bash
@@ -55,3 +45,19 @@ cd DOCUMENT_EXTRACTION
 python3 -m venv env
 source env/bin/activate  # macOS/Linux
 # .\env\Scripts\activate # Windows
+```
+
+### Step 2: Install Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### Step 3: Run the Application
+```bash
+# For KEV dataset querying:
+python app.py
+
+# For PDF processing module:
+python pdf_app.py
+
+
