@@ -17,6 +17,12 @@
 
 ## 🏗️ System Architecture
 
+<div align="center">
+
+[![predictions](https://github.com/laikhuramkorouhanba/DOCUMENT_EXTRACTION_SYSTEM_RAG/blob/main/assets/ARC.png?raw=true)]((https://github.com/laikhuramkorouhanba/DOCUMENT_EXTRACTION_SYSTEM_RAG))
+
+</div>
+
 The system follows a modular RAG workflow:
 1.  [cite_start]**Data Handling**: Loads and preprocesses CSV/PDF data[cite: 117, 139].
 2.  [cite_start]**Vector Store**: Manages high-dimensional embeddings using Chroma DB and FastEmbed[cite: 130, 282].
