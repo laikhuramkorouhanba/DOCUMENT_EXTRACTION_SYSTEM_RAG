@@ -1,8 +1,6 @@
 # Document Extraction System using LLM API and RAG
 
-[cite_start]This project is a Flask-based web application designed to analyze and extract insights from cybersecurity data[cite: 30]. [cite_start]It utilizes **Retrieval-Augmented Generation (RAG)** and the **Llama 3.2 1B** model to process the **CISA Known Exploited Vulnerabilities (KEV)** catalog and user-uploaded PDF documents[cite: 29, 32].
-
-[cite_start]Developed by **Laikhuram Korouhanba Khuman** at the **Web Information Retrieval Lab**, National Taipei University of Technology[cite: 6, 14, 16].
+This project is a Flask-based web application designed to analyse and extract insights from cybersecurity data. It uses **Retrieval-Augmented Generation (RAG)** and the **Llama 3.2 1B** model to process the **CISA Known Exploited Vulnerabilities (KEV)** catalog and user-uploaded PDF documents. Developed as an undergraduate exchange project at the National Taipei University of Technology, the system specifically focuses on extracting and summarizing insights from CISA’s Known Exploited Vulnerabilities (KEV) catalog.
 
 ---
 
