@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>RAG Document Extraction</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='vendor/aos/aos.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
+</head>
+
+<body class="index-page">
+  <!-- Header Section -->
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="header-container container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+      <a href="{{ url_for('home') }}" class="logo d-flex align-items-center me-auto me-xl-0">
+        <img src="{{ url_for('static', filename='assets/logo_.png') }}" alt="">
+      </a>
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a class="active">RAG AGENT FOR DOCUMENT EXTRACTION</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+      <a class="btn-getstarted">Currently Using Llama-3.2-1B</a>
+    </div>
+  </header>
+  <!-- Main -->
+  <main class="main">
+    <!-- Input Section -->
+    <section id="hero" class="hero section">
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+              <div class="company-badge mb-4">
+                <i class="bi bi-gear-fill me-2"></i>
+                Ask a Question
+              </div>
+              <!--Form-->
+              <form id="upload-pdf-form" action="/pdf" method="POST" enctype="multipart/form-data">
+                <div class="container">
+                  <label class="loading" for="file">Choose a PDF file:</label>
+                  <input type="file" id="file" name="file" accept=".pdf" required>
+                  <br><br>
+                  <button class="btn btn-primary me-0 me-sm-2 mx-1" type="submit">Upload</button>
+                  <p id="status"></p>
+                </div>
+              </form>
+              <!-- Form -->
+              <form id="query-form" action="{{ url_for('query') }}" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+                <div class="row gy-4">
+                  <div class="col-12">
+                    <textarea id="query" class="form-control" name="message" rows="6" placeholder="Your Query" required=""></textarea>
+                  </div>
+                  <div class="col-12 text-center">
+                    <div class="loading">Loading</div>
+                    <div class="error-message"></div>
+                    <div class="sent-message">Your query is being processed!</div>
+                    <button type="submit" class="btn btn-primary me-0 me-sm-2 mx-1">Submit</button>
+                  </div>
+                </div>
+              </form>
+    </section>
+    <!-- End Section -->
+    <!-- Result Section -->
+    <section id="summary_response" class="features section">
+      <div id="result" class="container section-title" data-aos="fade-up">
+              <h1 class="mb-4">
+                RESPONSE
+              </h1>
+              <p id="summary">Your Response Will Appear Here</p>
+              <p>Top Relevant Results:</p>
+              <div id="top-relevant-results"></div>
+              <h1 class="mb-4">
+                AUGMENTED RESPONSE
+              </h1>
+              <p id="response">Your Response Will Appear Here</p>
+      </div>
+    </section>
+    <!-- End Section -->
+  </main>
+  <!-- End Main -->
+<!-- Scroll Top -->
+<a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/aos/aos.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/glightbox/js/glightbox.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/swiper/swiper-bundle.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/purecounter/purecounter_vanilla.js') }}"></script>
+
+  <!-- Main JS File -->
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+  <!-- Custom JS for Form Submission -->
+  <script>
+      document.getElementById('query-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const query = document.getElementById('query').value;
+            fetch('/query', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams({ query })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('summary').textContent = data.summary || 'No summary available';
+                document.getElementById('response').textContent = data.response || 'No response available';
+                const topResultsElement = document.getElementById('top-relevant-results');
+                if (data.top_relevant_results && data.top_relevant_results.length > 0) {
+                    topResultsElement.innerHTML = data.top_relevant_results.map((result, index) => {
+                        return `<p>${index + 1}. ${result.vulnerabilityName} (Similarity: ${result.similarity})</p>`;
+                    }).join('');
+                } else {
+                    topResultsElement.textContent = 'No relevant results found.';
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+  </script>
+  <script>
+    document.getElementById('upload-pdf-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const fileInput = document.getElementById('file');
+        const formData = new FormData();
+        formData.append('file', fileInput.files[0]);
+
+        fetch('/pdf', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+
+            document.getElementById('status').textContent = data.status;
+        })
+        .catch(error => console.error('Error:', error));
+    });
+  </script>
+
+</body>
+
+</html>
